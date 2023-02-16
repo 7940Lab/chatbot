@@ -32,6 +32,7 @@ def main():
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("hello", hello))
 
     # To start the bot:
     updater.start_polling()
@@ -63,6 +64,12 @@ def add(update: Update, context: CallbackContext) -> None:
                                   redis1.get(msg).decode('UTF-8') + ' times.')
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /add <keyword>')
+
+
+def hello(update: Update, context: CallbackContext) -> None:
+    """Send a message when the command /hello is issued."""
+    msg = context.args[0]
+    update.message.reply_text('Good day, ' + msg + '!')
 
 
 if __name__ == '__main__':
