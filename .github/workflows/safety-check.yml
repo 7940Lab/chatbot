@@ -1,19 +1,16 @@
-name: Python safety check
-
-on:
+name: Python application workflow
+on: 
   push:
     branches:
-      - master
-
-env:
-  DEP_PATH: src/requirements.txt
+      -main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out master
-        uses: actions/checkout@master
-
+      - name: Check out main
+        uses: actions/checkout@main
       - name: Security vulnerabilities scan
-        uses: aufdenpunkt/python-safety-check@master
+        uses: aufdenpunkt/python-safety-check@main
+      env:
+        DEP_PATH: requirements.txt
