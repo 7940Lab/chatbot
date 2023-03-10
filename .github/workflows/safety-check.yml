@@ -1,0 +1,24 @@
+name: safety-check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Python Safety Check package
+      run: pip install aufdenpunkt/python-safety-check
+
+    - name: Test with pytest and Python Safety Check
+      run: |
+        pip install .
+        safety check
+        pytest
