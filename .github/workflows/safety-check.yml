@@ -1,24 +1,19 @@
-name: safety-check
+name: Python safety check
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - master
+
+env:
+  DEP_PATH: src/requirements.txt
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+      - name: Check out master
+        uses: actions/checkout@master
 
-    - name: Install Python Safety Check package
-      run: pip install aufdenpunkt/python-safety-check
-
-    - name: Test with pytest and Python Safety Check
-      run: |
-        pip install .
-        safety check
-        pytest
+      - name: Security vulnerabilities scan
+        uses: aufdenpunkt/python-safety-check@master
